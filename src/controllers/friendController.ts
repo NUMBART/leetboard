@@ -1,7 +1,7 @@
 import * as friendServices from '../services/friendServices';
 
-const someEndpoint = (req, res) => {
-  friendServices.someEndpoint(req, res);
+const getFriends = (req, res) => {
+  friendServices.getFriends(req, res);
 };
 
-export { someEndpoint };
+export { getFriends };
