@@ -7,7 +7,8 @@
   "scripts": {
     "dev": "npx tsc && nodemon --es-module-specifier-resolution=node dist/index.js",
     "start": "NODE_ENV=production npx tsc && node --es-module-specifier-resolution=node dist/index.js",
-    "test": "jest"
+    "test": "jest",
+    "heroku-postbuild": "npm run build"
   },
   "author": "Subhrangshu",
   "license": "ISC",
