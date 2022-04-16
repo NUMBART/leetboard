@@ -4,6 +4,10 @@
   "description": "add friends from leetcode and compete against them, check your country rank",
   "main": "index.js",
   "type": "module",
+  "engines": {
+    "node": "16.4.0",
+    "npm": "7.18.1"
+  },
   "scripts": {
     "dev": "npx tsc && nodemon --es-module-specifier-resolution=node dist/index.js",
     "start": "npx tsc && node --es-module-specifier-resolution=node dist/index.js",
