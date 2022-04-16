@@ -15,7 +15,7 @@ rankRouter.get('/global', (req, res) => {
 //   res.send('requi');
 // });
 
-rankRouter.get('/test', function (req, res) {
+rankRouter.get('/', function (req, res) {
   res.sendFile('/Users/subhrangshu/Documents/Nodejs/leetboard/frontend/leaderboard.html');
 });
 
