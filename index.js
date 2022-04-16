@@ -14,7 +14,7 @@ app.use(contestRouter);
 updateNextContestCron.start();
 scheduleContestCron.start();
 
-app.listen(CONSTANTS.PORT, () => {
+app.listen(process.env.PORT || CONSTANTS.PORT, () => {
   console.log(
     `leeter-board listening on port 3000 at ${new Date().toLocaleString('en-US', {
       timeZone: 'Asia/Kolkata',
