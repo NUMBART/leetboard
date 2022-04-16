@@ -1,16 +1,18 @@
 import express from 'express';
 import './src/db/mongo';
-import updateLeaderBoardCron from './src/crons/updateLeaderBoardCron';
-import friendRouter from './src/routes/friendRouter';
+import rankRouter from './src/routes/rankRouter';
 import CONSTANTS from './src/config/constants';
 import contestRouter from './src/routes/contestRouter';
+import updateNextContestCron from './src/crons/updateNextContestCron';
+import scheduleContestCron from './src/crons/scheduleContestCron';
 
 const app = express();
 app.use(express.json());
-app.use(friendRouter);
+app.use(rankRouter);
 app.use(contestRouter);
 
-updateLeaderBoardCron.start();
+updateNextContestCron.start();
+scheduleContestCron.start();
 
 app.listen(CONSTANTS.PORT, () => {
   console.log(

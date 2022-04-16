@@ -125,7 +125,7 @@ class LeaderBoard {
         contestants.push(contestant);
       });
     });
-    console.log('sample contestant : ', JSON.stringify(contestants[0], null, 2));
+    console.log('sample contestant : ', contestants[0].username);
     try {
       const start = Date.now();
       await Contestant.remove({});
@@ -149,6 +149,12 @@ class LeaderBoard {
   }
   public async getFriendsRank(friends: string[]) {
     const friendsRankList = await Contestant.find({ username: { $in: friends } });
+    return friendsRankList;
+  }
+  public async getGlobalRank(page: any) {
+    const friendsRankList = await Contestant.find({
+      rank: { $gt: 50 * (page - 1), $lt: 50 * page + 1 },
+    });
     return friendsRankList;
   }
 }

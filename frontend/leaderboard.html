@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+  <meta charset="UTF-8" />
+  <title>Page Title</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  </head>
+  <script>
+    var page_heading_data = {
+      title: 'Biweekly Contest 76',
+      titleSlug: 'weekly-contest-288',
+      startTime: 1649984338,
+      duration: 250,
+      originStartTime: 1649936100,
+    };
+
+    var global_rank_data = [
+      {
+        _id: '6258ef738aaaab8621c9aa6e',
+        username: 'uwi',
+        username_color: null,
+        user_badge: null,
+        user_slug: 'uwi',
+        country_code: 'JP',
+        country_name: 'Japan',
+        rank: 6,
+        score: 18,
+        finish_time: 1649559590,
+        submissions: {
+          2626: {
+            date: 1649558309,
+            question_id: 2327,
+            submission_id: 677313122,
+            fail_count: 0,
+          },
+          2627: {
+            date: 1649558213,
+            question_id: 2328,
+            submission_id: 677311703,
+            fail_count: 0,
+          },
+          2628: {
+            date: 1649558384,
+            question_id: 2329,
+            submission_id: 677314272,
+            fail_count: 0,
+          },
+          2629: {
+            date: 1649559290,
+            question_id: 2330,
+            submission_id: 677327755,
+            fail_count: 1,
+          },
+        },
+        __v: 0,
+      },
+      {
+        _id: '6258ef738aaaab8621c9aa74',
+        username: 'PurpleCrayon',
+        username_color: null,
+        user_badge: null,
+        user_slug: 'PurpleCrayon',
+        country_code: '',
+        country_name: null,
+        rank: 12,
+        score: 18,
+        finish_time: 1649559892,
+        submissions: {
+          2626: {
+            date: 1649558705,
+            question_id: 2327,
+            submission_id: 677319068,
+            fail_count: 0,
+          },
+          2627: {
+            date: 1649558566,
+            question_id: 2328,
+            submission_id: 677317048,
+            fail_count: 1,
+          },
+          2628: {
+            date: 1649558078,
+            question_id: 2329,
+            submission_id: 677309912,
+            fail_count: 0,
+          },
+          2629: {
+            date: 1649559592,
+            question_id: 2330,
+            submission_id: 677332176,
+            fail_count: 0,
+          },
+        },
+        __v: 0,
+      },
+      {
+        _id: '6258ef738aaaab8621c9aaa1',
+        username: 'LarryNY',
+        username_color: null,
+        user_badge: {
+          _id: '6258ef738aaaab8621c9aaa2',
+          icon: '/static/images/badges/dcc-2022-1.png',
+          display_name: 'Jan LeetCoding Challenge',
+        },
+        user_slug: 'LarryNY',
+        country_code: 'US',
+        country_name: 'United States',
+        rank: 57,
+        score: 18,
+        finish_time: 1649561241,
+        submissions: {
+          2626: {
+            date: 1649558003,
+            question_id: 2327,
+            submission_id: 677309063,
+            fail_count: 0,
+          },
+          2627: {
+            date: 1649558481,
+            question_id: 2328,
+            submission_id: 677315776,
+            fail_count: 0,
+          },
+          2628: {
+            date: 1649558634,
+            question_id: 2329,
+            submission_id: 677318035,
+            fail_count: 0,
+          },
+          2629: {
+            date: 1649560641,
+            question_id: 2330,
+            submission_id: 677347347,
+            fail_count: 2,
+          },
+        },
+        __v: 0,
+      },
+      {
+        _id: '6258ef748aaaab8621c9ba13',
+        username: 'rudraman',
+        username_color: null,
+        user_badge: null,
+        user_slug: 'rudraman',
+        country_code: '',
+        country_name: null,
+        rank: 3392,
+        score: 12,
+        finish_time: 1649562151,
+        submissions: {
+          2626: {
+            date: 1649558649,
+            question_id: 2327,
+            submission_id: 677318233,
+            fail_count: 1,
+          },
+          2627: {
+            date: 1649561251,
+            question_id: 2328,
+            submission_id: 677355853,
+            fail_count: 1,
+          },
+          2628: {
+            date: 1649560301,
+            question_id: 2329,
+            submission_id: 677342433,
+            fail_count: 1,
+          },
+        },
+        __v: 0,
+      },
+    ];
+    var friends_data = [
+      {
+        _id: '6258ef738aaaab8621c9aa6e',
+        username: 'uwi',
+        username_color: null,
+        user_badge: null,
+        user_slug: 'uwi',
+        country_code: 'JP',
+        country_name: 'Japan',
+        rank: 6,
+        score: 18,
+        finish_time: 1649559590,
+        submissions: {
+          2626: {
+            date: 1649558309,
+            question_id: 2327,
+            submission_id: 677313122,
+            fail_count: 0,
+          },
+          2627: {
+            date: 1649558213,
+            question_id: 2328,
+            submission_id: 677311703,
+            fail_count: 0,
+          },
+          2628: {
+            date: 1649558384,
+            question_id: 2329,
+            submission_id: 677314272,
+            fail_count: 0,
+          },
+          2629: {
+            date: 1649559290,
+            question_id: 2330,
+            submission_id: 677327755,
+            fail_count: 1,
+          },
+        },
+        __v: 0,
+      },
+      {
+        _id: '6258ef738aaaab8621c9aa74',
+        username: 'PurpleCrayon',
+        username_color: null,
+        user_badge: null,
+        user_slug: 'PurpleCrayon',
+        country_code: '',
+        country_name: null,
+        rank: 12,
+        score: 18,
+        finish_time: 1649559892,
+        submissions: {
+          2626: {
+            date: 1649558705,
+            question_id: 2327,
+            submission_id: 677319068,
+            fail_count: 0,
+          },
+          2627: {
+            date: 1649558566,
+            question_id: 2328,
+            submission_id: 677317048,
+            fail_count: 1,
+          },
+          2628: {
+            date: 1649558078,
+            question_id: 2329,
+            submission_id: 677309912,
+            fail_count: 0,
+          },
+          2629: {
+            date: 1649559592,
+            question_id: 2330,
+            submission_id: 677332176,
+            fail_count: 0,
+          },
+        },
+        __v: 0,
+      },
+      {
+        _id: '6258ef738aaaab8621c9aaa1',
+        username: 'LarryNY',
+        username_color: null,
+        user_badge: {
+          _id: '6258ef738aaaab8621c9aaa2',
+          icon: '/static/images/badges/dcc-2022-1.png',
+          display_name: 'Jan LeetCoding Challenge',
+        },
+        user_slug: 'LarryNY',
+        country_code: 'US',
+        country_name: 'United States',
+        rank: 57,
+        score: 18,
+        finish_time: 1649561241,
+        submissions: {
+          2626: {
+            date: 1649558003,
+            question_id: 2327,
+            submission_id: 677309063,
+            fail_count: 0,
+          },
+          2627: {
+            date: 1649558481,
+            question_id: 2328,
+            submission_id: 677315776,
+            fail_count: 0,
+          },
+          2628: {
+            date: 1649558634,
+            question_id: 2329,
+            submission_id: 677318035,
+            fail_count: 0,
+          },
+          2629: {
+            date: 1649560641,
+            question_id: 2330,
+            submission_id: 677347347,
+            fail_count: 2,
+          },
+        },
+        __v: 0,
+      },
+      {
+        _id: '6258ef748aaaab8621c9ba13',
+        username: 'rudraman',
+        username_color: null,
+        user_badge: null,
+        user_slug: 'rudraman',
+        country_code: '',
+        country_name: null,
+        rank: 3392,
+        score: 12,
+        finish_time: 1649562151,
+        submissions: {
+          2626: {
+            date: 1649558649,
+            question_id: 2327,
+            submission_id: 677318233,
+            fail_count: 1,
+          },
+          2627: {
+            date: 1649561251,
+            question_id: 2328,
+            submission_id: 677355853,
+            fail_count: 1,
+          },
+          2628: {
+            date: 1649560301,
+            question_id: 2329,
+            submission_id: 677342433,
+            fail_count: 1,
+          },
+        },
+        __v: 0,
+      },
+    ];
+    $('.main_heading').html(`Welcome to the ${page_heading_data.titleSlug}`);
+    // $(".table_data").html(`
+
+    // `);
+    $(document).ready(function () {
+      $('.main_heading').html(`Welcome to the ${page_heading_data.titleSlug}`);
+
+      content = '';
+
+      var settings = {
+        url: 'http://localhost:3000/friends',
+        method: 'POST',
+        timeout: 0,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        data: JSON.stringify({
+          friends: ['rudraman', 'uwi', 'LarryNY', 'PurpleCrayon'],
+        }),
+      };
+
+      $.ajax(settings).done(function (response) {
+        console.log('hello world');
+        console.log(response);
+        response.map((x) => {
+          content += `<div class ="table_heading_contents">
+            <div class= "table_content_data">
+            ${x.username}
+        </div>
+        <div class= "table_content_data">
+            ${x.user_slug}
+        </div>
+        <div class= "table_content_data">
+            ${x.country_name}
+        </div>
+        <div class= "table_content_data">
+            ${x.rank}
+        </div>
+        <div class= "table_content_data">
+            ${x.submissions}
+        </div>
+        </div>
+        `;
+        });
+        $('.table_heading_contents_data').html(content);
+      });
+    });
+  </script>
+  <body>
+    <div class="main_heading"></div>
+
+    <hr style="margin: 20px 0" />
+    <div class="table_data">
+      <div class="table_heading">
+        <div class="table_heading_data">username</div>
+        <div class="table_heading_data">user_slug</div>
+        <div class="table_heading_data">country_name</div>
+        <div class="table_heading_data">rank</div>
+        <div class="table_heading_data">submissions</div>
+      </div>
+      <div class="table_heading_contents_data"></div>
+    </div>
+  </body>
+  <style>
+    .table_heading_contents {
+      display: flex;
+    }
+    .table_content_data {
+      display: flex;
+      justify-content: space-around;
+      width: 200px;
+      overflow-x: auto;
+      padding: 10px;
+      border: 1px solid black;
+      background-color: #dee8ed;
+    }
+    .table_heading_data {
+      display: flex;
+      font-size: large;
+      font-weight: bold;
+      text-transform: capitalize;
+      background-color: darkgoldenrod;
+      color: antiquewhite;
+      justify-content: space-around;
+      width: 200px;
+      overflow-x: auto;
+      padding: 10px;
+      border: 1px solid black;
+    }
+    .table_heading {
+      display: flex;
+      font-size: large;
+      font-weight: bold;
+      text-transform: capitalize;
+      background-color: darkgoldenrod;
+      color: antiquewhite;
+      justify-content: space-around;
+      overflow-x: auto;
+    }
+
+    .table_data {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  </style>
+  <script>
+    var data = JSON.stringify({
+      friends: ['rudraman', 'uwi', 'LarryNY', 'PurpleCrayon'],
+    });
+
+    var xhr = new XMLHttpRequest();
+    xhr.withCredentials = true;
+
+    xhr.addEventListener('readystatechange', function () {
+      if (this.readyState === 4) {
+        console.log(this.responseText);
+      }
+    });
+
+    xhr.open('POST', 'http://localhost:3000/friends');
+    xhr.setRequestHeader('Content-Type', 'application/json');
+
+    xhr.send(data);
+  </script>
+</html>
