@@ -8,6 +8,11 @@ import scheduleContestCron from './src/crons/scheduleContestCron';
 
 const app = express();
 app.use(express.json());
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*'); // update to match the domain you will make the request from
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  next();
+});
 app.use(rankRouter);
 app.use(contestRouter);
 
@@ -16,7 +21,9 @@ scheduleContestCron.start();
 
 app.listen(process.env.PORT || CONSTANTS.PORT, () => {
   console.log(
-    `leeter-board listening on port 3000 at ${new Date().toLocaleString('en-US', {
+    `leeter-board listening on port ${
+      process.env.PORT || CONSTANTS.PORT
+    } at ${new Date().toLocaleString('en-US', {
       timeZone: 'Asia/Kolkata',
     })}`
   );
