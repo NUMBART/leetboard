@@ -155,7 +155,13 @@ class LeaderBoard {
     const friendsRankList = await Contestant.find({
       rank: { $gt: 50 * (page - 1), $lt: 50 * page + 1 },
     });
-    return friendsRankList;
+    const contestantCount = await new Promise((resolve) => {
+      Contestant.count({}, function (err, count) {
+        resolve(count);
+      });
+    });
+
+    return { friendsRankList, contestantCount };
   }
 }
 
