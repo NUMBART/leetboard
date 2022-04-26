@@ -152,7 +152,7 @@ class LeaderBoard {
     return friendsRankList;
   }
   public async getGlobalRank(page: any) {
-    const friendsRankList = await Contestant.find({
+    const globalRankList = await Contestant.find({
       rank: { $gt: 50 * (page - 1), $lt: 50 * page + 1 },
     });
     const contestantCount = await new Promise((resolve) => {
@@ -161,7 +161,7 @@ class LeaderBoard {
       });
     });
 
-    return { friendsRankList, contestantCount };
+    return { globalRankList, contestantCount };
   }
 }
 
