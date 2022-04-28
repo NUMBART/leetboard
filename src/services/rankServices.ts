@@ -5,7 +5,7 @@ import LeaderBoard from '../models/LeaderBoard';
 const getFriends = (req, res) => {
   const friends = req.body.friends;
   new Contest()
-    .getNextContest()
+    .getLastContest()
     .then(({ titleSlug }) => {
       const url = CONSTANTS.CONTEST_URL + titleSlug + '/';
       const leaderBoard = new LeaderBoard(url);
@@ -22,7 +22,7 @@ const getFriends = (req, res) => {
 const getGlobal = (req, res) => {
   const page = parseInt(req.query.page);
   new Contest()
-    .getNextContest()
+    .getLastContest()
     .then(({ titleSlug }) => {
       const url = CONSTANTS.CONTEST_URL + titleSlug + '/';
       const leaderBoard = new LeaderBoard(url);

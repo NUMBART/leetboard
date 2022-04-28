@@ -28,28 +28,37 @@ class Contest {
     }
   }
   public async updateNextContest() {
+    // TODO change to bulk upsert
     const { allContests } = await this.getContestList();
-    const currentTimestampInSeconds = Math.floor(Date.now() / 1000);
-    let contestIdx = 0,
-      nextContest = allContests[0];
-    while (allContests[contestIdx + 1].startTime > currentTimestampInSeconds) {
-      contestIdx++;
-    }
-    nextContest = allContests[contestIdx];
-    const contestModel = new ContestModel(nextContest);
     await ContestModel.deleteMany({});
-    await contestModel.save();
+    await ContestModel.insertMany(allContests);
     console.log('updated next contest details to db');
-    return nextContest;
   }
   public async getNextContest() {
-    const contest = await ContestModel.find({});
+    const currentTimestampInSeconds = Math.floor(Date.now() / 1000);
+    const contest = await ContestModel.findOne({
+      startTime: { $gte: currentTimestampInSeconds },
+    }).sort({ startTime: 1 });
     let response = {
-      title: contest[0].title,
-      titleSlug: contest[0].titleSlug,
-      startTime: contest[0].startTime,
-      duration: contest[0].duration,
-      originStartTime: contest[0].originStartTime,
+      title: contest.title,
+      titleSlug: contest.titleSlug,
+      startTime: contest.startTime,
+      duration: contest.duration,
+      originStartTime: contest.originStartTime,
+    };
+    return response;
+  }
+  public async getLastContest() {
+    const currentTimestampInSeconds = Math.floor(Date.now() / 1000);
+    const contest = await ContestModel.findOne({
+      startTime: { $lte: currentTimestampInSeconds },
+    }).sort({ startTime: -1 });
+    let response = {
+      title: contest.title,
+      titleSlug: contest.titleSlug,
+      startTime: contest.startTime,
+      duration: contest.duration,
+      originStartTime: contest.originStartTime,
     };
     return response;
   }

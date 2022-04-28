@@ -3,11 +3,11 @@ import Contest from '../models/Contest';
 import LeaderBoard from '../models/LeaderBoard';
 
 // TODO move current implementation to cron at every day 12PM and add separate method to pick from DB
-const getNextContest = (req, res) => {
+const getLastContest = (req, res) => {
   new Contest()
-    .getNextContest()
+    .getLastContest()
     .then((response) => res.send(response))
     .catch((e) => console.log(e));
 };
 
-export { getNextContest };
+export { getLastContest };
