@@ -1,7 +1,7 @@
 import * as contestServices from '../services/contestServices';
 
-const getNextContest = (req, res) => {
-  contestServices.getNextContest(req, res);
+const getLastContest = (req, res) => {
+  contestServices.getLastContest(req, res);
 };
 
-export { getNextContest };
+export { getLastContest };

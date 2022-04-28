@@ -25,7 +25,7 @@ class UpdateLeaderBoardCron {
       })}`
     );
     const contest = new Contest();
-    const { titleSlug } = await contest.getNextContest();
+    const { titleSlug } = await contest.getLastContest();
     const url = CONSTANTS.CONTEST_URL + titleSlug + '/';
     const leaderBoard = new LeaderBoard(url);
     leaderBoard.updateLeaderBoard().then(() => {
