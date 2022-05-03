@@ -36,4 +36,22 @@ const getGlobal = (req, res) => {
     });
 };
 
-export { getFriends, getGlobal };
+const getCountry = (req, res) => {
+  const page = parseInt(req.query.page);
+  const country = req.query.country;
+  new Contest()
+    .getLastContest()
+    .then(({ titleSlug }) => {
+      const url = CONSTANTS.CONTEST_URL + titleSlug + '/';
+      const leaderBoard = new LeaderBoard(url);
+      leaderBoard
+        .getCountryRank(country, page)
+        .then((rankList) => res.send(rankList))
+        .catch((e) => console.log(e));
+    })
+    .catch((e) => {
+      console.log(e);
+    });
+};
+
+export { getFriends, getGlobal, getCountry };

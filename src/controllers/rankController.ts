@@ -8,4 +8,8 @@ const getGlobal = (req, res) => {
   rankServices.getGlobal(req, res);
 };
 
-export { getFriends, getGlobal };
+const getCountry = (req, res) => {
+  rankServices.getCountry(req, res);
+};
+
+export { getFriends, getGlobal, getCountry };

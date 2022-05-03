@@ -11,8 +11,12 @@ rankRouter.get('/global', (req, res) => {
   rankController.getGlobal(req, res);
 });
 
+rankRouter.get('/country', (req, res) => {
+  rankController.getCountry(req, res);
+});
+
 rankRouter.get('/', function (req, res) {
-  res.sendFile(__dirname + '/frontend/leaderboard.html');
+  res.send('leetboard is active');
 });
 
 export default rankRouter;

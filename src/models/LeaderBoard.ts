@@ -163,6 +163,19 @@ class LeaderBoard {
 
     return { globalRankList, contestantCount };
   }
+  public async getCountryRank(country: any, page: any) {
+    console.log('country : ', country, 'page : ', page);
+    const countryRankList = await Contestant.find({ country_name: country })
+      .sort({ rank: 1 })
+      .skip(50 * (page - 1))
+      .limit(50);
+    const contestantCount = await new Promise((resolve) => {
+      Contestant.count({ country_name: country }, function (err, count) {
+        resolve(count);
+      });
+    });
+    return { countryRankList, contestantCount };
+  }
 }
 
 export default LeaderBoard;
