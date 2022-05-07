@@ -138,7 +138,7 @@ class LeaderBoard {
   public async updateLeaderBoard() {
     await this.saveQuestions();
     const contestantCount: number = await this.getContestantCount();
-    const pageCount = Math.ceil(contestantCount / CONSTANTS.RANKS_PER_PAGE);
+    const pageCount = Math.ceil(contestantCount / CONSTANTS.LEETCODE_RANKS_PER_PAGE);
     const batches = this.getPageBatches(pageCount);
     const start = Date.now();
     const result = await this.getLeaderBoard(batches);
@@ -153,7 +153,10 @@ class LeaderBoard {
   }
   public async getGlobalRank(page: any) {
     const globalRankList = await Contestant.find({
-      rank: { $gt: 50 * (page - 1), $lt: 50 * page + 1 },
+      rank: {
+        $gt: CONSTANTS.FRONTEND_RANKS_PER_PAGE * (page - 1),
+        $lt: CONSTANTS.FRONTEND_RANKS_PER_PAGE * page + 1,
+      },
     });
     const contestantCount = await new Promise((resolve) => {
       Contestant.count({}, function (err, count) {
@@ -167,8 +170,8 @@ class LeaderBoard {
     console.log('country : ', country, 'page : ', page);
     const countryRankList = await Contestant.find({ country_name: country })
       .sort({ rank: 1 })
-      .skip(50 * (page - 1))
-      .limit(50);
+      .skip(CONSTANTS.FRONTEND_RANKS_PER_PAGE * (page - 1))
+      .limit(CONSTANTS.FRONTEND_RANKS_PER_PAGE);
     const contestantCount = await new Promise((resolve) => {
       Contestant.count({ country_name: country }, function (err, count) {
         resolve(count);
