@@ -63,6 +63,7 @@ class Contest {
     return response;
   }
   public async schedule() {
+    this.scheduleOngoing();
     const contest = await this.getNextContest();
     const startTime = new Date(contest.startTime * 1000);
     const endTime = new Date((contest.startTime + contest.duration) * 1000);
@@ -72,6 +73,17 @@ class Contest {
       schedule.scheduleJob(`${endTime.toString()} contest stop`, endTime, this.stop);
     }
     console.log(`\nContests scheduled list : \n${Object.keys(schedule.scheduledJobs).join('\n')}`);
+  }
+  private async scheduleOngoing() {
+    const contest = await this.getLastContest();
+    const restartTime = new Date(Date.now() + 60000);
+    const endTimeStamp = (contest.startTime + contest.duration) * 1000;
+    const endTime = new Date(endTimeStamp);
+    const currentTime = Date.now();
+    if (Math.abs(endTimeStamp - currentTime) <= contest.duration * 1000) {
+      schedule.scheduleJob(`${restartTime.toString()} contest start`, restartTime, this.start);
+      schedule.scheduleJob(`${endTime.toString()} contest stop`, endTime, this.stop);
+    }
   }
   private start() {
     console.log(`Contest started at ${Date().toString()}`);

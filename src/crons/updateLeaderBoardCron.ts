@@ -34,7 +34,6 @@ class UpdateLeaderBoardCron {
   }
 
   public start() {
-    this.updateLeaderBoard();
     this.updateLeaderBoardCron.start();
   }
   public stop() {

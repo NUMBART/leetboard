@@ -23,8 +23,8 @@ class ScheduleContestCron {
     const contest = new Contest();
     await contest.schedule();
   }
-
   public start() {
+    this.scheduleContest();
     this.scheduleContestCron.start();
   }
 }
