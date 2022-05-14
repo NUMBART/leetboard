@@ -4,7 +4,7 @@ import schedule from 'node-schedule';
 import { inspect } from 'util';
 import CONSTANTS from '../config/constants';
 import contestRouter from '../routes/contestRouter';
-import updateLeaderBoardCron from '../crons/updateLeaderBoardCron';
+import UpdateLeaderBoardCron from '../crons/updateLeaderBoardCron';
 
 const ContestModel = mongoose.model('Contest', {
   title: String,
@@ -17,7 +17,11 @@ const ContestModel = mongoose.model('Contest', {
 // TODO : remove duplicated config for proxy
 // TODO : add retry for following request and add
 class Contest {
-  constructor() {}
+  private updateLeaderBoardCron: UpdateLeaderBoardCron;
+
+  constructor() {
+    this.updateLeaderBoardCron = new UpdateLeaderBoardCron(CONSTANTS.LEADERBOARD_UPDATE_SCHEDULE);
+  }
   private async getContestList() {
     const options = CONSTANTS.CONTESTS_API_OPTION;
     try {
@@ -69,29 +73,37 @@ class Contest {
     const endTime = new Date((contest.startTime + contest.duration) * 1000);
     const currentTime = Date.now();
     if (contest.startTime * 1000 - currentTime <= CONSTANTS.DAY_IN_SECONDS * 1000) {
-      schedule.scheduleJob(`${startTime.toString()} contest start`, startTime, this.start);
-      schedule.scheduleJob(`${endTime.toString()} contest stop`, endTime, this.stop);
+      schedule.scheduleJob(
+        `${startTime.toString()} contest start`,
+        startTime,
+        this.start.bind(this)
+      );
+      schedule.scheduleJob(`${endTime.toString()} contest stop`, endTime, this.stop.bind(this));
     }
     console.log(`\nContests scheduled list : \n${Object.keys(schedule.scheduledJobs).join('\n')}`);
   }
   private async scheduleOngoing() {
     const contest = await this.getLastContest();
-    const restartTime = new Date(Date.now() + 60000);
+    const restartTime = new Date(Date.now() + 10000);
     const endTimeStamp = (contest.startTime + contest.duration) * 1000;
     const endTime = new Date(endTimeStamp);
     const currentTime = Date.now();
     if (Math.abs(endTimeStamp - currentTime) <= contest.duration * 1000) {
-      schedule.scheduleJob(`${restartTime.toString()} contest start`, restartTime, this.start);
-      schedule.scheduleJob(`${endTime.toString()} contest stop`, endTime, this.stop);
+      schedule.scheduleJob(
+        `${restartTime.toString()} contest start`,
+        restartTime,
+        this.start.bind(this)
+      );
+      schedule.scheduleJob(`${endTime.toString()} contest stop`, endTime, this.stop.bind(this));
     }
   }
   private start() {
     console.log(`Contest started at ${Date().toString()}`);
-    updateLeaderBoardCron.start();
+    this.updateLeaderBoardCron.start();
   }
   private stop() {
     console.log(`Contest stopped at ${Date().toString()}`);
-    updateLeaderBoardCron.stop();
+    this.updateLeaderBoardCron.stop();
   }
 }
 

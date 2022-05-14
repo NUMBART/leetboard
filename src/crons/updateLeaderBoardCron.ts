@@ -6,16 +6,11 @@ import LeaderBoard from '../models/LeaderBoard';
 class UpdateLeaderBoardCron {
   private updateLeaderBoardCron: any;
 
-  constructor() {
-    const instance = this.constructor['instance'];
-    if (instance) return instance;
-    this.updateLeaderBoardCron = cron.schedule(
-      CONSTANTS.LEADERBOARD_UPDATE_SCHEDULE,
-      this.updateLeaderBoard,
-      { timezone: 'Asia/Kolkata' }
-    );
+  constructor(updateSchedule: string) {
+    this.updateLeaderBoardCron = cron.schedule(updateSchedule, this.updateLeaderBoard, {
+      timezone: 'Asia/Kolkata',
+    });
     this.updateLeaderBoardCron.stop();
-    this.constructor['instance'] = this;
   }
 
   private async updateLeaderBoard() {
@@ -41,6 +36,4 @@ class UpdateLeaderBoardCron {
   }
 }
 
-const updateLeaderBoardCron = new UpdateLeaderBoardCron();
-
-export default updateLeaderBoardCron;
+export default UpdateLeaderBoardCron;
