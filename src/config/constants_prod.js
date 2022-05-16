@@ -1,7 +1,5 @@
 const CONSTANTS = {
   PORT: 3000,
-  MONGO_STRING:
-    'mongodb+srv://board:CpiUJQkjAEAV2sI9@leeter-board.fetwp.mongodb.net/leetboard?retryWrites=true&w=majority',
   CONTEST_URL: 'https://leetcode.com/contest/api/ranking/',
   LEETCODE_RANKS_PER_PAGE: 25,
   UPDATE_CONTEST_SCHEDULE: '0 13 * * *',

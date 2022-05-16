@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import express from 'express';
 import './src/db/mongo';
 import rankRouter from './src/routes/rankRouter';
