@@ -1,5 +1,6 @@
 const CONSTANTS = {
   PORT: 3000,
+  MONGO_STRING: process.env.MONGO_STRING,
   CONTEST_URL: 'https://leetcode.com/contest/api/ranking/',
   LEETCODE_RANKS_PER_PAGE: 25,
   FRONTEND_RANKS_PER_PAGE: 50,
