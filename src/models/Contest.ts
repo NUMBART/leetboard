@@ -1,9 +1,7 @@
 import axios from 'axios';
 import mongoose from 'mongoose';
 import schedule from 'node-schedule';
-import { inspect } from 'util';
 import CONSTANTS from '../config/constants';
-import contestRouter from '../routes/contestRouter';
 import UpdateLeaderBoardCron from '../crons/updateLeaderBoardCron';
 
 const ContestModel = mongoose.model('Contest', {
@@ -18,6 +16,7 @@ const ContestModel = mongoose.model('Contest', {
 // TODO : add retry for following request and add
 class Contest {
   private updateLeaderBoardCron: UpdateLeaderBoardCron;
+  static lastScheduled = 0;
 
   constructor() {
     this.updateLeaderBoardCron = new UpdateLeaderBoardCron(CONSTANTS.LEADERBOARD_UPDATE_SCHEDULE);
@@ -72,13 +71,19 @@ class Contest {
     const startTime = new Date(contest.startTime * 1000);
     const endTime = new Date((contest.startTime + contest.duration) * 1000);
     const currentTime = Date.now();
-    if (contest.startTime * 1000 - currentTime <= CONSTANTS.DAY_IN_SECONDS * 1000) {
+    const alreadyScheduled =
+      contest.startTime * 1000 - Contest.lastScheduled <= CONSTANTS.DAY_IN_SECONDS * 1000;
+    if (
+      !alreadyScheduled &&
+      contest.startTime * 1000 - currentTime <= CONSTANTS.DAY_IN_SECONDS * 1000
+    ) {
       schedule.scheduleJob(
         `${startTime.toString()} contest start`,
         startTime,
         this.start.bind(this)
       );
       schedule.scheduleJob(`${endTime.toString()} contest stop`, endTime, this.stop.bind(this));
+      Contest.lastScheduled = currentTime;
     }
     console.log(`\nContests scheduled list : \n${Object.keys(schedule.scheduledJobs).join('\n')}`);
   }
