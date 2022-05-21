@@ -21,5 +21,5 @@ I created this site for making it possible to create and view friend leaderboard
 
 ## Suggestions
 
-If you find any bugs or have features you would like me to add do comment in this leetcode [post](https://leetcode.com/discuss/general-discussion/2060416/Site-for-creating-and-viewing-custom-friend-leaderboard).
+Give it a try for the upcoming contest and if you find any bugs or have features you would like me to add, do comment in this leetcode [post](https://leetcode.com/discuss/general-discussion/2060416/Site-for-creating-and-viewing-custom-friend-leaderboard).
  
