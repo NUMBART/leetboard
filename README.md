@@ -19,5 +19,7 @@ I created this site for making it possible to create and view friend leaderboard
 
 <img width="1437" alt="image" src="https://user-images.githubusercontent.com/26141133/169654748-0f4e8a54-1274-4a4b-b0ef-435d71c184cd.png">
 
+## Suggestions
 
+If you find any bugs or have features you would like me to add do comment in this leetcode [post](https://leetcode.com/discuss/general-discussion/2060416/Site-for-creating-and-viewing-custom-friend-leaderboard).
  
