@@ -1,7 +1,7 @@
 import cron from 'node-cron';
 import CONSTANTS from '../config/constants';
 import Contest from '../models/Contest';
-import LeaderBoard from '../models/LeaderBoard';
+import ContestLeaderBoard from '../models/ContestLeaderBoard';
 
 class UpdateLeaderBoardCron {
   private updateLeaderBoardCron: any;
@@ -22,7 +22,7 @@ class UpdateLeaderBoardCron {
     const contest = new Contest();
     const { titleSlug } = await contest.getLastContest();
     const url = CONSTANTS.CONTEST_URL + titleSlug + '/';
-    const leaderBoard = new LeaderBoard(url);
+    const leaderBoard = new ContestLeaderBoard(url);
     leaderBoard.updateLeaderBoard().then(() => {
       console.log('updated leader board');
     });

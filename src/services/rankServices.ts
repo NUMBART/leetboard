@@ -1,6 +1,6 @@
 import CONSTANTS from '../config/constants';
 import Contest from '../models/Contest';
-import LeaderBoard from '../models/LeaderBoard';
+import ContestLeaderBoard from '../models/ContestLeaderBoard';
 
 const getFriends = (req, res) => {
   const friends = req.body.friends;
@@ -8,7 +8,7 @@ const getFriends = (req, res) => {
     .getLastContest()
     .then(({ titleSlug }) => {
       const url = CONSTANTS.CONTEST_URL + titleSlug + '/';
-      const leaderBoard = new LeaderBoard(url);
+      const leaderBoard = new ContestLeaderBoard(url);
       leaderBoard
         .getFriendsRank(friends)
         .then((friendsRankList) => res.send(friendsRankList))
@@ -25,7 +25,7 @@ const getGlobal = (req, res) => {
     .getLastContest()
     .then(({ titleSlug }) => {
       const url = CONSTANTS.CONTEST_URL + titleSlug + '/';
-      const leaderBoard = new LeaderBoard(url);
+      const leaderBoard = new ContestLeaderBoard(url);
       leaderBoard
         .getGlobalRank(page)
         .then((rankList) => res.send(rankList))
@@ -43,7 +43,7 @@ const getCountry = (req, res) => {
     .getLastContest()
     .then(({ titleSlug }) => {
       const url = CONSTANTS.CONTEST_URL + titleSlug + '/';
-      const leaderBoard = new LeaderBoard(url);
+      const leaderBoard = new ContestLeaderBoard(url);
       leaderBoard
         .getCountryRank(country, page)
         .then((rankList) => res.send(rankList))

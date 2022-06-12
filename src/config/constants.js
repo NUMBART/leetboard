@@ -21,6 +21,28 @@ const CONSTANTS = {
       PASSWORD: 'k6z0okqirvdi',
     },
   },
+  PROXY_AUTHS: [
+    {
+      USERNAME: 'urmwxuny-rotate',
+      PASSWORD: 'k6z0okqirvdi',
+    },
+    {
+      USERNAME: 'tnnqfxsb-rotate',
+      PASSWORD: 'b2b2evydsbuy',
+    },
+    {
+      USERNAME: 'nyaqoyda-rotate',
+      PASSWORD: 'k6z0okqirvdi',
+    },
+    {
+      USERNAME: 'kkltamzh-rotate',
+      PASSWORD: 'p23mea35xk96',
+    },
+    {
+      USERNAME: 'swirbjfp-rotate',
+      PASSWORD: '67i08chkddbv',
+    },
+  ],
   CONTESTS_API_OPTION: {
     baseURL: 'https://leetcode.com/graphql',
     headers: { 'content-type': 'application/json' },
