@@ -8,6 +8,7 @@ import updateNextContestCron from './src/crons/updateNextContestCron';
 import scheduleContestCron from './src/crons/scheduleContestCron';
 import UpdateLeaderBoardCron from './src/crons/updateLeaderBoardCron';
 import ratingRouter from './src/routes/ratingRouter';
+import updateRatingLBCron from './src/crons/updateRatingLBCron';
 
 const app = express();
 app.use(express.json());
@@ -22,6 +23,7 @@ app.use(contestRouter);
 
 updateNextContestCron.start();
 scheduleContestCron.start();
+updateRatingLBCron.start();
 new UpdateLeaderBoardCron(CONSTANTS.DAILY_LEADERBOARD_UPDATE_SCHEDULE).start();
 
 app.listen(process.env.PORT || CONSTANTS.PORT, () => {
