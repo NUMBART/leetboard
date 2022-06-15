@@ -5,8 +5,8 @@ import Contestant from './Contestant';
 import Question from './Question';
 
 class LeaderBoard {
-  private url: string;
-  private options: any;
+  protected url: string;
+  protected options: any;
   private leaderBoard: [];
   private questions: {};
 
@@ -55,7 +55,7 @@ class LeaderBoard {
       });
     });
   }
-  private async getContestantCount(): Promise<number> {
+  protected async getContestantCount(): Promise<number> {
     const { user_num: contestantCount } = await this.getRankPage(1);
     return contestantCount;
   }
@@ -70,7 +70,7 @@ class LeaderBoard {
       console.log(e);
     }
   }
-  private getPageBatches(pageCount: number): number[][] {
+  protected getPageBatches(pageCount: number): number[][] {
     let batches = [];
     for (let i = 1; i <= pageCount; i += CONSTANTS.REQUESTS_PER_BATCH) {
       const batchPageCount = Math.min(i + CONSTANTS.REQUESTS_PER_BATCH - 1, pageCount) - i + 1;
@@ -78,7 +78,7 @@ class LeaderBoard {
     }
     return batches;
   }
-  private async getLeaderBoard(batches: number[][]): Promise<any> {
+  protected async getLeaderBoard(batches: number[][]): Promise<any> {
     const leaderBoard = [];
     for (const batch of batches) {
       const ranks = await this.getRankPagesIn(batch);
@@ -96,7 +96,7 @@ class LeaderBoard {
       }, CONSTANTS.BATCH_WAIT_TIME);
     });
   }
-  private async getRankPagesIn(batch: number[]) {
+  protected async getRankPagesIn(batch: number[]) {
     return await Promise.allSettled(
       batch.map(async (page) => {
         const response = await this.getRankPage(page);
@@ -104,7 +104,7 @@ class LeaderBoard {
       })
     );
   }
-  private async saveLeaderBoard(result: any) {
+  protected async saveLeaderBoard(result: any) {
     const contestants = [];
     result.forEach((rankPage: any) => {
       rankPage.total_rank.forEach((contestant: any, i: any) => {

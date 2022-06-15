@@ -7,6 +7,7 @@ import contestRouter from './src/routes/contestRouter';
 import updateNextContestCron from './src/crons/updateNextContestCron';
 import scheduleContestCron from './src/crons/scheduleContestCron';
 import UpdateLeaderBoardCron from './src/crons/updateLeaderBoardCron';
+import ratingRouter from './src/routes/ratingRouter';
 
 const app = express();
 app.use(express.json());
@@ -16,6 +17,7 @@ app.use((req, res, next) => {
   next();
 });
 app.use(rankRouter);
+app.use(ratingRouter);
 app.use(contestRouter);
 
 updateNextContestCron.start();
