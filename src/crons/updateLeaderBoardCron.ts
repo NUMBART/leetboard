@@ -5,6 +5,7 @@ import ContestLeaderBoard from '../models/ContestLeaderBoard';
 
 class UpdateLeaderBoardCron {
   private updateLeaderBoardCron: any;
+  private static shouldUpdate: boolean = true;
 
   constructor(updateSchedule: string) {
     this.updateLeaderBoardCron = cron.schedule(updateSchedule, this.updateLeaderBoard, {
@@ -14,18 +15,22 @@ class UpdateLeaderBoardCron {
   }
 
   private async updateLeaderBoard() {
-    console.log(
-      `\nUpdating leader board at ${new Date().toLocaleString('en-US', {
-        timeZone: 'Asia/Kolkata',
-      })}`
-    );
-    const contest = new Contest();
-    const { titleSlug } = await contest.getLastContest();
-    const url = CONSTANTS.CONTEST_URL + titleSlug + '/';
-    const leaderBoard = new ContestLeaderBoard(url);
-    leaderBoard.updateLeaderBoard().then(() => {
-      console.log('updated leader board');
-    });
+    if (UpdateLeaderBoardCron.shouldUpdate === true) {
+      UpdateLeaderBoardCron.shouldUpdate = false;
+      console.log(
+        `\nUpdating leader board at ${new Date().toLocaleString('en-US', {
+          timeZone: 'Asia/Kolkata',
+        })}`
+      );
+      const contest = new Contest();
+      const { titleSlug } = await contest.getLastContest();
+      const url = CONSTANTS.CONTEST_URL + titleSlug + '/';
+      const leaderBoard = new ContestLeaderBoard(url);
+      leaderBoard.updateLeaderBoard().then(() => {
+        console.log('updated leader board');
+        UpdateLeaderBoardCron.shouldUpdate = true;
+      });
+    }
   }
 
   public start() {
