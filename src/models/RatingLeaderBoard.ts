@@ -107,7 +107,7 @@ class RatingLeaderBoard extends LeaderBoard {
       .skip(CONSTANTS.FRONTEND_RANKS_PER_PAGE * (page - 1))
       .limit(CONSTANTS.FRONTEND_RANKS_PER_PAGE);
     const contestantCount = await new Promise((resolve) => {
-      RatingNode.count({ country_name: country }, function (err, count) {
+      RatingNode.count({ countryName: country }, function (err, count) {
         resolve(count);
       });
     });
