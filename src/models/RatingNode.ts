@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const RatingNode = mongoose.model('RatingNode', {
   ranking: {
-    type: Array,
+    type: String,
     required: true,
   },
   currentRating: {
