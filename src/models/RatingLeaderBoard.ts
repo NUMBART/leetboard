@@ -79,7 +79,6 @@ class RatingLeaderBoard extends LeaderBoard {
     await this.saveLeaderBoard(result);
     const timeTaken = Date.now() - start;
     console.log(`time taken : ${timeTaken} \n result size and object : ${result.length} \n`);
-    console.log(contestantCount, ' ', JSON.stringify(result, null, 2));
     return { pageCount, contestantCount };
   }
   public async getFriendsRank(friends: string[]) {

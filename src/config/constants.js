@@ -69,7 +69,7 @@ const CONSTANTS = {
       operationName: null,
       variables: {},
       query:
-        '{\n  globalRanking(page: _page_) {\n    totalUsers\n    userPerPage\n    rankingNodes {\n      currentRating\n      currentGlobalRanking\n      dataRegion\n      user {\n        username\n        profile {\n          countryCode\n          countryName\n          realName\n}\n}\n}\n}\n}\n',
+        '{\n  globalRanking(page: _page_) {\n    totalUsers\n    userPerPage\n    rankingNodes {\n      ranking\n      currentRating\n      currentGlobalRanking\n      dataRegion\n      user {\n        username\n        profile {\n          countryCode\n          countryName\n          realName\n}\n}\n}\n}\n}\n',
     },
     proxy: {
       protocol: 'http',
