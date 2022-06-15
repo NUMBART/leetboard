@@ -1,6 +1,10 @@
 import mongoose from 'mongoose';
 
 const RatingNode = mongoose.model('RatingNode', {
+  ranking: {
+    type: Array,
+    required: true,
+  },
   currentRating: {
     type: Number,
     required: true,

@@ -46,8 +46,9 @@ class RatingLeaderBoard extends LeaderBoard {
     const users = [];
     result.forEach((response) => {
       response.data.globalRanking.rankingNodes.forEach((node) => {
-        const { currentRating, currentGlobalRanking, dataRegion, user } = node;
+        const { ranking, currentRating, currentGlobalRanking, dataRegion, user } = node;
         const userNode = {
+          ranking,
           currentRating,
           currentGlobalRanking,
           dataRegion,
