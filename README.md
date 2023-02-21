@@ -6,7 +6,7 @@ I created this site for making it possible to create and view friend leaderboard
 
 ## How to use
 
-1. Access the site here - https://leetboard.herokuapp.com/
+1. Access the site here - https://leeter-board.web.app/
 
 2. Select the type of leaderboard you would like to view.  
     <img width="301" alt="image" src="https://user-images.githubusercontent.com/26141133/169653755-058326c3-746d-424e-8ea3-3c9c199e6bce.png">
