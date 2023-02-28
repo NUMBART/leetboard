@@ -63,8 +63,20 @@ class RatingLeaderBoard extends LeaderBoard {
     console.log('sample user : ', users[0].username);
     try {
       const start = Date.now();
-      await RatingNode.remove({});
-      await RatingNode.insertMany(users);
+      // await RatingNode.remove({});
+      // await RatingNode.insertMany(users);
+      await RatingNode.bulkWrite(
+        users.map((user) => {
+          return {
+            updateOne: {
+              filter: { username: user.username },
+              update: { $set: user },
+              upsert: true,
+            },
+          };
+        }),
+        { ordered: false }
+      );
       console.log(`Contestants inserted in ${Date.now() - start} ms`);
     } catch (e) {
       console.log(e);
