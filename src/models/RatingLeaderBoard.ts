@@ -63,8 +63,6 @@ class RatingLeaderBoard extends LeaderBoard {
     console.log('sample user : ', users[0].username);
     try {
       const start = Date.now();
-      // await RatingNode.remove({});
-      // await RatingNode.insertMany(users);
       await RatingNode.bulkWrite(
         users.map((user) => {
           return {
