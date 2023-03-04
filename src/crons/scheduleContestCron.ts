@@ -21,7 +21,12 @@ class ScheduleContestCron {
       })}`
     );
     const contest = new Contest();
-    await contest.schedule();
+    try {
+      await contest.schedule();
+    } catch (e) {
+      console.error(e);
+      throw e;
+    }
   }
   public start() {
     this.scheduleContest();

@@ -1,3 +1,33 @@
+const PROXY_AUTHS = [
+  {
+    USERNAME: 'urmwxuny-rotate',
+    PASSWORD: 'k6z0okqirvdi',
+  },
+  {
+    USERNAME: 'tnnqfxsb-rotate',
+    PASSWORD: 'b2b2evydsbuy',
+  },
+  {
+    USERNAME: 'nyaqoyda-rotate',
+    PASSWORD: 'k6z0okqirvdi',
+  },
+  {
+    USERNAME: 'kkltamzh-rotate',
+    PASSWORD: 'p23mea35xk96',
+  },
+  {
+    USERNAME: 'swirbjfp-rotate',
+    PASSWORD: '67i08chkddbv',
+  },
+];
+
+const random = (min, max) => Math.floor(Math.random() * (max - min)) + min;
+
+const getProxyAuthCreds = () => {
+  const pIdx = random(0, 6);
+  return { username: PROXY_AUTHS[pIdx].USERNAME, password: PROXY_AUTHS[pIdx].PASSWORD };
+};
+
 const CONSTANTS = {
   PORT: 3000,
   MONGO_STRING: process.env.MONGO_STRING,
@@ -17,33 +47,9 @@ const CONSTANTS = {
     PROTOCOL: 'http',
     HOST: 'p.webshare.io',
     PORT: 80,
-    AUTH: {
-      USERNAME: 'urmwxuny-rotate',
-      PASSWORD: 'k6z0okqirvdi',
-    },
+    AUTH: getProxyAuthCreds(),
   },
-  PROXY_AUTHS: [
-    {
-      USERNAME: 'urmwxuny-rotate',
-      PASSWORD: 'k6z0okqirvdi',
-    },
-    {
-      USERNAME: 'tnnqfxsb-rotate',
-      PASSWORD: 'b2b2evydsbuy',
-    },
-    {
-      USERNAME: 'nyaqoyda-rotate',
-      PASSWORD: 'k6z0okqirvdi',
-    },
-    {
-      USERNAME: 'kkltamzh-rotate',
-      PASSWORD: 'p23mea35xk96',
-    },
-    {
-      USERNAME: 'swirbjfp-rotate',
-      PASSWORD: '67i08chkddbv',
-    },
-  ],
+
   CONTESTS_API_OPTION: {
     baseURL: 'https://leetcode.com/graphql',
     headers: { 'content-type': 'application/json' },
@@ -57,10 +63,7 @@ const CONSTANTS = {
       protocol: 'http',
       host: 'p.webshare.io',
       port: 80,
-      auth: {
-        username: 'urmwxuny-rotate',
-        password: 'k6z0okqirvdi',
-      },
+      auth: getProxyAuthCreds(),
     },
   },
   RATING_LB_OPTION: {
@@ -76,10 +79,7 @@ const CONSTANTS = {
       protocol: 'http',
       host: 'p.webshare.io',
       port: 80,
-      auth: {
-        username: 'urmwxuny-rotate',
-        password: 'k6z0okqirvdi',
-      },
+      auth: getProxyAuthCreds(),
     },
   },
 };

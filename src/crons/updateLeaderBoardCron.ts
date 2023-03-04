@@ -22,14 +22,19 @@ class UpdateLeaderBoardCron {
           timeZone: 'Asia/Kolkata',
         })}`
       );
-      const contest = new Contest();
-      const { titleSlug } = await contest.getLastContest();
-      const url = CONSTANTS.CONTEST_URL + titleSlug + '/';
-      const leaderBoard = new ContestLeaderBoard(url);
-      leaderBoard.updateLeaderBoard().then(() => {
-        console.log('updated leader board');
-        UpdateLeaderBoardCron.shouldUpdate = true;
-      });
+      try {
+        const contest = new Contest();
+        const { titleSlug } = await contest.getLastContest();
+        const url = CONSTANTS.CONTEST_URL + titleSlug + '/';
+        const leaderBoard = new ContestLeaderBoard(url);
+        leaderBoard.updateLeaderBoard().then(() => {
+          console.log('updated leader board');
+          UpdateLeaderBoardCron.shouldUpdate = true;
+        });
+      } catch (e) {
+        console.error(e);
+        throw e;
+      }
     }
   }
 

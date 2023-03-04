@@ -39,8 +39,13 @@ class RatingLeaderBoard extends LeaderBoard {
     });
   }
   protected async getContestantCount() {
-    const response = await this.getRankPage(1);
-    return response.data.globalRanking.totalUsers;
+    try {
+      const response = await this.getRankPage(1);
+      return response.data.globalRanking.totalUsers;
+    } catch (e) {
+      console.error(e);
+      throw e;
+    }
   }
   protected async saveLeaderBoard(result: any) {
     const users = [];
@@ -77,51 +82,72 @@ class RatingLeaderBoard extends LeaderBoard {
       );
       console.log(`Contestants inserted in ${Date.now() - start} ms`);
     } catch (e) {
-      console.log(e);
+      console.error(e);
+      throw e;
     }
   }
   public async updateLeaderBoard() {
-    const contestantCount: number = await this.getContestantCount();
-    let pageCount = Math.ceil(contestantCount / CONSTANTS.LEETCODE_RANKS_PER_PAGE);
-    const batches = this.getPageBatches(pageCount);
-    const start = Date.now();
-    const result = await this.getLeaderBoard(batches);
-    await this.saveLeaderBoard(result);
-    const timeTaken = Date.now() - start;
-    console.log(`time taken : ${timeTaken} \n result size and object : ${result.length} \n`);
-    return { pageCount, contestantCount };
+    try {
+      const contestantCount: number = await this.getContestantCount();
+      let pageCount = Math.ceil(contestantCount / CONSTANTS.LEETCODE_RANKS_PER_PAGE);
+      const batches = this.getPageBatches(pageCount);
+      const start = Date.now();
+      const result = await this.getLeaderBoard(batches);
+      await this.saveLeaderBoard(result);
+      const timeTaken = Date.now() - start;
+      console.log(`time taken : ${timeTaken} \n result size and object : ${result.length} \n`);
+      return { pageCount, contestantCount };
+    } catch (e) {
+      console.error(e);
+      throw e;
+    }
   }
   public async getFriendsRank(friends: string[]) {
-    const friendsRankList = await RatingNode.find({ username: { $in: friends } });
-    return friendsRankList;
+    try {
+      const friendsRankList = await RatingNode.find({ username: { $in: friends } });
+      return friendsRankList;
+    } catch (e) {
+      console.error(e);
+      throw e;
+    }
   }
   public async getGlobalRank(page: any) {
-    const globalRankList = await RatingNode.find({
-      currentGlobalRanking: {
-        $gt: CONSTANTS.FRONTEND_RANKS_PER_PAGE * (page - 1),
-        $lt: CONSTANTS.FRONTEND_RANKS_PER_PAGE * page + 1,
-      },
-    });
-    const contestantCount = await new Promise((resolve) => {
-      RatingNode.count({}, function (err, count) {
-        resolve(count);
+    try {
+      const globalRankList = await RatingNode.find({
+        currentGlobalRanking: {
+          $gt: CONSTANTS.FRONTEND_RANKS_PER_PAGE * (page - 1),
+          $lt: CONSTANTS.FRONTEND_RANKS_PER_PAGE * page + 1,
+        },
       });
-    });
+      const contestantCount = await new Promise((resolve) => {
+        RatingNode.count({}, function (err, count) {
+          resolve(count);
+        });
+      });
 
-    return { globalRankList, contestantCount };
+      return { globalRankList, contestantCount };
+    } catch (e) {
+      console.error(e);
+      throw e;
+    }
   }
   public async getCountryRank(country: any, page: any) {
-    console.log('country : ', country, 'page : ', page);
-    const countryRankList = await RatingNode.find({ countryName: country })
-      .sort({ currentGlobalRanking: 1 })
-      .skip(CONSTANTS.FRONTEND_RANKS_PER_PAGE * (page - 1))
-      .limit(CONSTANTS.FRONTEND_RANKS_PER_PAGE);
-    const contestantCount = await new Promise((resolve) => {
-      RatingNode.count({ countryName: country }, function (err, count) {
-        resolve(count);
+    try {
+      console.log('country : ', country, 'page : ', page);
+      const countryRankList = await RatingNode.find({ countryName: country })
+        .sort({ currentGlobalRanking: 1 })
+        .skip(CONSTANTS.FRONTEND_RANKS_PER_PAGE * (page - 1))
+        .limit(CONSTANTS.FRONTEND_RANKS_PER_PAGE);
+      const contestantCount = await new Promise((resolve) => {
+        RatingNode.count({ countryName: country }, function (err, count) {
+          resolve(count);
+        });
       });
-    });
-    return { countryRankList, contestantCount };
+      return { countryRankList, contestantCount };
+    } catch (e) {
+      console.error(e);
+      throw e;
+    }
   }
 }
 

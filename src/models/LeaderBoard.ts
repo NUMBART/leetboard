@@ -23,8 +23,8 @@ class LeaderBoard {
         host: CONSTANTS.PROXY.HOST,
         port: CONSTANTS.PROXY.PORT,
         auth: {
-          username: CONSTANTS.PROXY.AUTH.USERNAME,
-          password: CONSTANTS.PROXY.AUTH.PASSWORD,
+          username: CONSTANTS.PROXY.AUTH.username,
+          password: CONSTANTS.PROXY.AUTH.password,
         },
       },
     };
@@ -56,8 +56,13 @@ class LeaderBoard {
     });
   }
   protected async getContestantCount(): Promise<number> {
-    const { user_num: contestantCount } = await this.getRankPage(1);
-    return contestantCount;
+    try {
+      const { user_num: contestantCount } = await this.getRankPage(1);
+      return contestantCount;
+    } catch (e) {
+      console.error(e);
+      throw e;
+    }
   }
   private async saveQuestions() {
     try {
@@ -67,7 +72,8 @@ class LeaderBoard {
       await Question.remove({});
       await Question.insertMany(questions);
     } catch (e) {
-      console.log(e);
+      console.error(e);
+      throw e;
     }
   }
   protected getPageBatches(pageCount: number): number[][] {
@@ -79,30 +85,45 @@ class LeaderBoard {
     return batches;
   }
   protected async getLeaderBoard(batches: number[][]): Promise<any> {
-    const leaderBoard = [];
-    for (const batch of batches) {
-      const ranks = await this.getRankPagesIn(batch);
-      ranks.forEach((rank: any) => {
-        leaderBoard.push(rank.value);
-      });
-      await this.delayBetweenBatches();
+    try {
+      const leaderBoard = [];
+      for (const batch of batches) {
+        const ranks = await this.getRankPagesIn(batch);
+        ranks.forEach((rank: any) => {
+          leaderBoard.push(rank.value);
+        });
+        await this.delayBetweenBatches();
+      }
+      return leaderBoard;
+    } catch (e) {
+      console.error(e);
+      throw e;
     }
-    return leaderBoard;
   }
   private async delayBetweenBatches() {
-    await new Promise((resolve) => {
-      setTimeout(() => {
-        resolve('time completed');
-      }, CONSTANTS.BATCH_WAIT_TIME);
-    });
+    try {
+      await new Promise((resolve) => {
+        setTimeout(() => {
+          resolve('time completed');
+        }, CONSTANTS.BATCH_WAIT_TIME);
+      });
+    } catch (e) {
+      console.error(e);
+      throw e;
+    }
   }
   protected async getRankPagesIn(batch: number[]) {
-    return await Promise.allSettled(
-      batch.map(async (page) => {
-        const response = await this.getRankPage(page);
-        return response;
-      })
-    );
+    try {
+      return await Promise.allSettled(
+        batch.map(async (page) => {
+          const response = await this.getRankPage(page);
+          return response;
+        })
+      );
+    } catch (e) {
+      console.error(e);
+      throw e;
+    }
   }
   protected async saveLeaderBoard(result: any) {
     const contestants = [];
@@ -132,52 +153,73 @@ class LeaderBoard {
       await Contestant.insertMany(contestants);
       console.log(`Contestants inserted in ${Date.now() - start} ms`);
     } catch (e) {
-      console.log(e);
+      console.error(e);
+      throw e;
     }
   }
   public async updateLeaderBoard() {
-    await this.saveQuestions();
-    const contestantCount: number = await this.getContestantCount();
-    const pageCount = Math.ceil(contestantCount / CONSTANTS.LEETCODE_RANKS_PER_PAGE);
-    const batches = this.getPageBatches(pageCount);
-    const start = Date.now();
-    const result = await this.getLeaderBoard(batches);
-    await this.saveLeaderBoard(result);
-    const timeTaken = Date.now() - start;
-    console.log(`time taken : ${timeTaken} \n result size and object : ${result.length} \n`);
-    return { pageCount, contestantCount };
+    try {
+      await this.saveQuestions();
+      const contestantCount: number = await this.getContestantCount();
+      const pageCount = Math.ceil(contestantCount / CONSTANTS.LEETCODE_RANKS_PER_PAGE);
+      const batches = this.getPageBatches(pageCount);
+      const start = Date.now();
+      const result = await this.getLeaderBoard(batches);
+      await this.saveLeaderBoard(result);
+      const timeTaken = Date.now() - start;
+      console.log(`time taken : ${timeTaken} \n result size and object : ${result.length} \n`);
+      return { pageCount, contestantCount };
+    } catch (e) {
+      console.error(e);
+      throw e;
+    }
   }
   public async getFriendsRank(friends: string[]) {
-    const friendsRankList = await Contestant.find({ username: { $in: friends } });
-    return friendsRankList;
+    try {
+      const friendsRankList = await Contestant.find({ username: { $in: friends } });
+      return friendsRankList;
+    } catch (e) {
+      console.error(e);
+      throw e;
+    }
   }
   public async getGlobalRank(page: any) {
-    const globalRankList = await Contestant.find({
-      rank: {
-        $gt: CONSTANTS.FRONTEND_RANKS_PER_PAGE * (page - 1),
-        $lt: CONSTANTS.FRONTEND_RANKS_PER_PAGE * page + 1,
-      },
-    });
-    const contestantCount = await new Promise((resolve) => {
-      Contestant.count({}, function (err, count) {
-        resolve(count);
+    try {
+      const globalRankList = await Contestant.find({
+        rank: {
+          $gt: CONSTANTS.FRONTEND_RANKS_PER_PAGE * (page - 1),
+          $lt: CONSTANTS.FRONTEND_RANKS_PER_PAGE * page + 1,
+        },
       });
-    });
+      const contestantCount = await new Promise((resolve) => {
+        Contestant.count({}, function (err, count) {
+          resolve(count);
+        });
+      });
 
-    return { globalRankList, contestantCount };
+      return { globalRankList, contestantCount };
+    } catch (e) {
+      console.error(e);
+      throw e;
+    }
   }
   public async getCountryRank(country: any, page: any) {
-    console.log('country : ', country, 'page : ', page);
-    const countryRankList = await Contestant.find({ country_name: country })
-      .sort({ rank: 1 })
-      .skip(CONSTANTS.FRONTEND_RANKS_PER_PAGE * (page - 1))
-      .limit(CONSTANTS.FRONTEND_RANKS_PER_PAGE);
-    const contestantCount = await new Promise((resolve) => {
-      Contestant.count({ country_name: country }, function (err, count) {
-        resolve(count);
+    try {
+      console.log('country : ', country, 'page : ', page);
+      const countryRankList = await Contestant.find({ country_name: country })
+        .sort({ rank: 1 })
+        .skip(CONSTANTS.FRONTEND_RANKS_PER_PAGE * (page - 1))
+        .limit(CONSTANTS.FRONTEND_RANKS_PER_PAGE);
+      const contestantCount = await new Promise((resolve) => {
+        Contestant.count({ country_name: country }, function (err, count) {
+          resolve(count);
+        });
       });
-    });
-    return { countryRankList, contestantCount };
+      return { countryRankList, contestantCount };
+    } catch (e) {
+      console.error(e);
+      throw e;
+    }
   }
 }
 
