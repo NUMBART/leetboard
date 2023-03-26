@@ -4,6 +4,7 @@ import './src/db/mongo';
 import rankRouter from './src/routes/rankRouter';
 import CONSTANTS from './src/config/constants';
 import contestRouter from './src/routes/contestRouter';
+import dailyChallengeRouter from './src/routes/dailyChallengeRouter';
 import updateNextContestCron from './src/crons/updateNextContestCron';
 import scheduleContestCron from './src/crons/scheduleContestCron';
 import UpdateLeaderBoardCron from './src/crons/updateLeaderBoardCron';
@@ -20,6 +21,7 @@ app.use((req, res, next) => {
 app.use(rankRouter);
 app.use(ratingRouter);
 app.use(contestRouter);
+app.use(dailyChallengeRouter);
 
 updateNextContestCron.start();
 scheduleContestCron.start();

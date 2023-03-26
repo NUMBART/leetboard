@@ -24,7 +24,7 @@ const PROXY_AUTHS = [
 const random = (min, max) => Math.floor(Math.random() * (max - min)) + min;
 
 const getProxyAuthCreds = () => {
-  const pIdx = random(0, 6);
+  const pIdx = random(0, 5);
   return { username: PROXY_AUTHS[pIdx].USERNAME, password: PROXY_AUTHS[pIdx].PASSWORD };
 };
 
