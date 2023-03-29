@@ -48,25 +48,25 @@ class RatingLeaderBoard extends LeaderBoard {
     }
   }
   protected async saveLeaderBoard(result: any) {
-    const users = [];
-    result.forEach((response) => {
-      response.data.globalRanking.rankingNodes.forEach((node) => {
-        const { ranking, currentRating, currentGlobalRanking, dataRegion, user } = node;
-        const userNode = {
-          ranking,
-          currentRating,
-          currentGlobalRanking,
-          dataRegion,
-          username: user.username,
-          countryCode: user.profile.countryCode,
-          countryName: user.profile.countryName,
-          realName: user.profile.realName,
-        };
-        users.push(userNode);
-      });
-    });
-    console.log('sample user : ', users[0].username);
     try {
+      const users = [];
+      result.forEach((response) => {
+        response.data.globalRanking.rankingNodes.forEach((node) => {
+          const { ranking, currentRating, currentGlobalRanking, dataRegion, user } = node;
+          const userNode = {
+            ranking,
+            currentRating,
+            currentGlobalRanking,
+            dataRegion,
+            username: user.username,
+            countryCode: user.profile.countryCode,
+            countryName: user.profile.countryName,
+            realName: user.profile.realName,
+          };
+          users.push(userNode);
+        });
+      });
+      console.log('sample user : ', users[0].username);
       const start = Date.now();
       await RatingNode.bulkWrite(
         users.map((user) => {
