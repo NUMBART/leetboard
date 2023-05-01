@@ -191,11 +191,7 @@ class LeaderBoard {
           $lt: CONSTANTS.FRONTEND_RANKS_PER_PAGE * page + 1,
         },
       });
-      const contestantCount = await new Promise((resolve) => {
-        Contestant.countDocuments({}, function (err, count) {
-          resolve(count);
-        });
-      });
+      const contestantCount = await Contestant.countDocuments({});
 
       return { globalRankList, contestantCount };
     } catch (e) {
@@ -210,11 +206,7 @@ class LeaderBoard {
         .sort({ rank: 1 })
         .skip(CONSTANTS.FRONTEND_RANKS_PER_PAGE * (page - 1))
         .limit(CONSTANTS.FRONTEND_RANKS_PER_PAGE);
-      const contestantCount = await new Promise((resolve) => {
-        Contestant.countDocuments({ country_name: country }, function (err, count) {
-          resolve(count);
-        });
-      });
+      const contestantCount = await Contestant.countDocuments({ country_name: country });
       return { countryRankList, contestantCount };
     } catch (e) {
       console.error(e);

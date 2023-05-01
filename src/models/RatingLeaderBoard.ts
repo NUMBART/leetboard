@@ -119,12 +119,7 @@ class RatingLeaderBoard extends LeaderBoard {
           $lt: CONSTANTS.FRONTEND_RANKS_PER_PAGE * page + 1,
         },
       });
-      const contestantCount = await new Promise((resolve) => {
-        RatingNode.countDocuments({}, function (err, count) {
-          resolve(count);
-        });
-      });
-
+      const contestantCount = await RatingNode.countDocuments({});
       return { globalRankList, contestantCount };
     } catch (e) {
       console.error(e);
@@ -138,11 +133,7 @@ class RatingLeaderBoard extends LeaderBoard {
         .sort({ currentGlobalRanking: 1 })
         .skip(CONSTANTS.FRONTEND_RANKS_PER_PAGE * (page - 1))
         .limit(CONSTANTS.FRONTEND_RANKS_PER_PAGE);
-      const contestantCount = await new Promise((resolve) => {
-        RatingNode.countDocuments({ countryName: country }, function (err, count) {
-          resolve(count);
-        });
-      });
+      const contestantCount = await RatingNode.countDocuments({ countryName: country });
       return { countryRankList, contestantCount };
     } catch (e) {
       console.error(e);
