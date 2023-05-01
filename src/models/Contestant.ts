@@ -13,7 +13,7 @@ const submission = new Schema({
   timestamp: Number,
 });
 
-const Contestant = mongoose.model('Contestant', {
+const Contestant = mongoose.model('Contestant', new Schema({
   username: {
     type: String,
     required: true,
@@ -42,6 +42,6 @@ const Contestant = mongoose.model('Contestant', {
   submissions: {
     type: Map,
   },
-});
+}));
 
 export default Contestant;

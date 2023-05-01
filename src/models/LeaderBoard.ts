@@ -69,7 +69,7 @@ class LeaderBoard {
       const { questions } = await this.getRankPage(1);
       this.questions = {};
       questions.forEach((q) => (this.questions[`${q.question_id}`] = q));
-      await Question.remove({});
+      await Question.deleteMany({});
       await Question.insertMany(questions);
     } catch (e) {
       console.error(e);
@@ -149,7 +149,7 @@ class LeaderBoard {
     console.log('sample contestant : ', contestants[0].username);
     try {
       const start = Date.now();
-      await Contestant.remove({});
+      await Contestant.deleteMany({});
       await Contestant.insertMany(contestants);
       console.log(`Contestants inserted in ${Date.now() - start} ms`);
     } catch (e) {
@@ -192,7 +192,7 @@ class LeaderBoard {
         },
       });
       const contestantCount = await new Promise((resolve) => {
-        Contestant.count({}, function (err, count) {
+        Contestant.countDocuments({}, function (err, count) {
           resolve(count);
         });
       });
@@ -211,7 +211,7 @@ class LeaderBoard {
         .skip(CONSTANTS.FRONTEND_RANKS_PER_PAGE * (page - 1))
         .limit(CONSTANTS.FRONTEND_RANKS_PER_PAGE);
       const contestantCount = await new Promise((resolve) => {
-        Contestant.count({ country_name: country }, function (err, count) {
+        Contestant.countDocuments({ country_name: country }, function (err, count) {
           resolve(count);
         });
       });

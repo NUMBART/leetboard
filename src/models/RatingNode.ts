@@ -1,6 +1,6 @@
-import mongoose from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 
-const RatingNode = mongoose.model('RatingNode', {
+const RatingNode = mongoose.model('RatingNode', new Schema({
   ranking: {
     type: String,
     required: true,
@@ -29,6 +29,6 @@ const RatingNode = mongoose.model('RatingNode', {
   realName: {
     type: String,
   },
-});
+}));
 
 export default RatingNode;

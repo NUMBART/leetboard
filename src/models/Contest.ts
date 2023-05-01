@@ -1,16 +1,16 @@
 import axios from 'axios';
-import mongoose from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 import schedule from 'node-schedule';
 import CONSTANTS from '../config/constants';
 import UpdateLeaderBoardCron from '../crons/updateLeaderBoardCron';
 
-const ContestModel = mongoose.model('Contest', {
+const ContestModel = mongoose.model('Contest', new Schema({
   title: String,
   titleSlug: String,
   startTime: Number,
   duration: Number,
   originStartTime: Number,
-});
+}));
 
 // TODO : remove duplicated config for proxy
 // TODO : add retry for following request and add

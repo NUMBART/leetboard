@@ -102,7 +102,7 @@ class RatingLeaderBoard extends LeaderBoard {
       throw e;
     }
   }
-  public async getFriendsRank(friends: string[]) {
+  public async getFriendsRank(friends: string[]): Promise<any> {
     try {
       const friendsRankList = await RatingNode.find({ username: { $in: friends } });
       return friendsRankList;
@@ -111,7 +111,7 @@ class RatingLeaderBoard extends LeaderBoard {
       throw e;
     }
   }
-  public async getGlobalRank(page: any) {
+  public async getGlobalRank(page: any): Promise<any> {
     try {
       const globalRankList = await RatingNode.find({
         currentGlobalRanking: {
@@ -120,7 +120,7 @@ class RatingLeaderBoard extends LeaderBoard {
         },
       });
       const contestantCount = await new Promise((resolve) => {
-        RatingNode.count({}, function (err, count) {
+        RatingNode.countDocuments({}, function (err, count) {
           resolve(count);
         });
       });
@@ -131,7 +131,7 @@ class RatingLeaderBoard extends LeaderBoard {
       throw e;
     }
   }
-  public async getCountryRank(country: any, page: any) {
+  public async getCountryRank(country: any, page: any): Promise<any> {
     try {
       console.log('country : ', country, 'page : ', page);
       const countryRankList = await RatingNode.find({ countryName: country })
@@ -139,7 +139,7 @@ class RatingLeaderBoard extends LeaderBoard {
         .skip(CONSTANTS.FRONTEND_RANKS_PER_PAGE * (page - 1))
         .limit(CONSTANTS.FRONTEND_RANKS_PER_PAGE);
       const contestantCount = await new Promise((resolve) => {
-        RatingNode.count({ countryName: country }, function (err, count) {
+        RatingNode.countDocuments({ countryName: country }, function (err, count) {
           resolve(count);
         });
       });

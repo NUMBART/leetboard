@@ -1,6 +1,6 @@
-import mongoose from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 
-const Question = mongoose.model('Question', {
+const Question = mongoose.model('Question', new Schema({
   id: {
     type: Number,
     required: true,
@@ -20,6 +20,6 @@ const Question = mongoose.model('Question', {
     type: String,
     required: true,
   },
-});
+}));
 
 export default Question;
